@@ -2,10 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Repository } from "@/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card"; // Removed CardTitle import
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Star, GitFork, ExternalLink } from "lucide-react";
+import { Star, GitFork } from "lucide-react";
 
 const fetchSideProjects = async (): Promise<Repository[]> => {
   const response = await fetch("/api/side-projects");
@@ -42,32 +42,49 @@ export default function SideProjects() {
           : projects?.map((project) => (
               <Card key={project.name} className="bg-card">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-lg flex items-center justify-between">
-                    <span className="truncate">{project.name}</span>
+                  <div className="flex justify-between items-center w-full">
                     <a
                       href={project.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary"
+                      className="text-lg text-muted-foreground hover:text-primary truncate max-w-[70%]"
                     >
-                      <ExternalLink size={16} />
+                      {project.name}
                     </a>
-                  </CardTitle>
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Star size={16} />
+                        <span>{project.stargazers_count}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <GitFork size={16} />
+                        <span>{project.forks_count}</span>
+                      </div>
+                    </div>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                     {project.description}
                   </p>
-                  <div className="flex items-center space-x-4 text-sm">
-                    <Badge variant="secondary">{project.language}</Badge>
-                    <span className="flex items-center space-x-1">
-                      <Star size={16} />
-                      <span>{project.stargazers_count}</span>
-                    </span>
-                    <span className="flex items-center space-x-1">
-                      <GitFork size={16} />
-                      <span>{project.forks_count}</span>
-                    </span>
+                  <div className="flex flex-nowrap items-center gap-2 overflow-x-auto pb-2">
+                    <Badge
+                      variant="outline"
+                      className="px-2 py-1 rounded-full text-xs shrink-0"
+                    >
+                      {project.language}
+                    </Badge>
+                    <div className="flex items-center gap-1">
+                      {project.topics.map((topic) => (
+                        <Badge
+                          key={topic}
+                          variant="secondary"
+                          className="px-2 py-1 rounded-full text-xs whitespace-nowrap shrink-0"
+                        >
+                          {topic}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sideprojects.directory/sitemap.xml 
