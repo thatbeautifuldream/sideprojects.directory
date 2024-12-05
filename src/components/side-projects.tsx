@@ -26,7 +26,7 @@ export default function SideProjects() {
 
   return (
     <div className="bg-background text-foreground mt-8">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {isLoading
           ? Array.from({ length: 3 }).map((_, index) => (
               <Card key={index} className="bg-card">
@@ -42,12 +42,12 @@ export default function SideProjects() {
           : projects?.map((project) => (
               <Card key={project.name} className="bg-card">
                 <CardHeader className="pb-2">
-                  <div className="flex justify-between items-center w-full">
+                  <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center w-full gap-2">
                     <a
                       href={project.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg text-muted-foreground hover:text-primary truncate max-w-[70%]"
+                      className="text-lg text-muted-foreground hover:text-primary truncate max-w-full xs:max-w-[70%]"
                     >
                       {project.name}
                     </a>
@@ -67,19 +67,19 @@ export default function SideProjects() {
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                     {project.description}
                   </p>
-                  <div className="flex flex-nowrap items-center gap-2 overflow-x-auto pb-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Badge
                       variant="outline"
-                      className="px-2 py-1 rounded-full text-xs shrink-0"
+                      className="px-2 py-1 rounded-full text-xs"
                     >
                       {project.language}
                     </Badge>
-                    <div className="flex items-center gap-1">
+                    <div className="flex flex-wrap items-center gap-1">
                       {project.topics.map((topic) => (
                         <Badge
                           key={topic}
                           variant="secondary"
-                          className="px-2 py-1 rounded-full text-xs whitespace-nowrap shrink-0"
+                          className="px-2 py-1 rounded-full text-xs"
                         >
                           {topic}
                         </Badge>
