@@ -67,19 +67,19 @@ export default function SideProjects() {
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-nowrap items-center gap-2 overflow-x-auto pb-2 hide-scrollbar">
                     <Badge
                       variant="outline"
-                      className="px-2 py-1 rounded-full text-xs"
+                      className="px-2 py-1 rounded-full text-xs shrink-0"
                     >
                       {project.language}
                     </Badge>
-                    <div className="flex flex-wrap items-center gap-1">
+                    <div className="flex items-center gap-1">
                       {project.topics.map((topic) => (
                         <Badge
                           key={topic}
                           variant="secondary"
-                          className="px-2 py-1 rounded-full text-xs"
+                          className="px-2 py-1 rounded-full text-xs whitespace-nowrap shrink-0"
                         >
                           {topic}
                         </Badge>
