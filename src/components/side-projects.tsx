@@ -7,19 +7,19 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star, GitFork } from "lucide-react";
 
-const fetchSideProjects = async (): Promise<Repository[]> => {
-  const response = await fetch("/api/side-projects");
+const fetchSideProjects = async (username: string): Promise<Repository[]> => {
+  const response = await fetch(`/api/side-projects?username=${username}`);
   return response.json();
 };
 
-export default function SideProjects() {
+export default function SideProjects({ username }: { username?: string }) {
   const {
     data: projects,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["sideProjects"],
-    queryFn: fetchSideProjects,
+    queryKey: ["sideProjects", username],
+    queryFn: () => fetchSideProjects(username ?? "thatbeautifuldream"),
   });
 
   if (error) return <div className="text-red-500">Error fetching projects</div>;
