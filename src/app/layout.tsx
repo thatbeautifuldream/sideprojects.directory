@@ -1,9 +1,8 @@
+import { inter } from "@/lib/fonts";
 import Providers from "@/providers";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import Header from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Side Projects Directory | Showcase Your Developer Projects",
@@ -70,8 +69,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
+      <body className={`${inter.className}`}>
+        <Providers>
+          <div className="min-h-screen bg-background">
+            <div className="container mx-auto px-4 py-8">
+              <Header />
+              {children}
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   );

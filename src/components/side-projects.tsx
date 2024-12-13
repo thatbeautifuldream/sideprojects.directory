@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"; // Removed
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star, GitFork } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const fetchSideProjects = async (username: string): Promise<Repository[]> => {
   const response = await fetch(`/api/side-projects?username=${username}`);
@@ -25,7 +26,7 @@ export default function SideProjects({ username }: { username?: string }) {
   if (error) return <div className="text-red-500">Error fetching projects</div>;
 
   return (
-    <div className="bg-background text-foreground mt-8">
+    <div className="bg-background text-foreground mt-8 font-mono">
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {isLoading
           ? Array.from({ length: 3 }).map((_, index) => (
@@ -47,7 +48,9 @@ export default function SideProjects({ username }: { username?: string }) {
                       href={project.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg text-muted-foreground hover:text-primary truncate max-w-full xs:max-w-[70%]"
+                      className={cn(
+                        "text-lg text-muted-foreground hover:text-primary truncate max-w-full xs:max-w-[70%]"
+                      )}
                     >
                       {project.name}
                     </a>

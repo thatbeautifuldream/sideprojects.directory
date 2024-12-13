@@ -1,26 +1,11 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import Header from "@/components/header";
 import SideProjects from "@/components/side-projects";
 
-export default function UserPage({
+export default async function UserPage({
   params,
 }: {
   params: Promise<{ username: string }>;
 }) {
-  const [username, setUsername] = useState<string | null>(null);
+  const username = (await params).username;
 
-  useEffect(() => {
-    params.then((resolvedParams) => {
-      setUsername(resolvedParams.username);
-    });
-  }, [params]);
-
-  return (
-    <div className="container font-mono mx-auto px-4 py-8">
-      <Header />
-      {username && <SideProjects username={username} />}
-    </div>
-  );
+  return <div>{username && <SideProjects username={username} />}</div>;
 }
