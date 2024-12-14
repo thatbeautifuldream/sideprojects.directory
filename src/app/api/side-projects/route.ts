@@ -6,9 +6,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const username = url.searchParams.get("username") || "thatbeautifuldream";
 
-  const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
-  });
+  const octokit = new Octokit();
 
   try {
     // Use the search.repos endpoint to find repositories with the 'side-project' topic for the provided username or default to thatbeautifuldream
