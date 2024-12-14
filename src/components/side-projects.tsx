@@ -2,11 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Repository } from "@/types";
-import { Card, CardContent, CardHeader } from "@/components/ui/card"; // Removed CardTitle import
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Star, GitFork } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { RepoStatsModal } from "./repo-stats-modal";
 
 const fetchSideProjects = async (username: string): Promise<Repository[]> => {
   const response = await fetch(`/api/side-projects?username=${username}`);
@@ -26,7 +25,7 @@ export default function SideProjects({ username }: { username?: string }) {
   if (error) return <div className="text-red-500">Error fetching projects</div>;
 
   return (
-    <div className="bg-background text-foreground mt-8 font-mono">
+    <div className="bg-background text-foreground mt-8">
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {isLoading
           ? Array.from({ length: 3 }).map((_, index) => (
@@ -48,21 +47,23 @@ export default function SideProjects({ username }: { username?: string }) {
                       href={project.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={cn(
-                        "text-lg text-muted-foreground hover:text-primary truncate max-w-full xs:max-w-[70%]"
-                      )}
+                      className="text-lg text-muted-foreground hover:text-primary truncate max-w-full xs:max-w-[70%]"
                     >
                       {project.name}
                     </a>
                     <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Star size={16} />
-                        <span>{project.stargazers_count}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <GitFork size={16} />
-                        <span>{project.forks_count}</span>
-                      </div>
+                      <RepoStatsModal
+                        stargazersUrl={project.stargazers_url}
+                        forksUrl={project.forks_url}
+                        type="stars"
+                        count={project.stargazers_count}
+                      />
+                      <RepoStatsModal
+                        stargazersUrl={project.stargazers_url}
+                        forksUrl={project.forks_url}
+                        type="forks"
+                        count={project.forks_count}
+                      />
                     </div>
                   </div>
                 </CardHeader>
