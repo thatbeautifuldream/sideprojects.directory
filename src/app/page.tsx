@@ -1,5 +1,6 @@
 "use client";
 
+import ProjectGrid from "@/components/project-grid";
 import { Button } from "@/components/ui/button";
 import { instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="flex-grow flex flex-col justify-start pt-[15vh] px-4 text-center">
+      <section className="flex-grow flex flex-col justify-start pt-12 px-4 text-center">
         <h2
           className={cn(
             "text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4",
@@ -48,6 +49,9 @@ export default function Home() {
           </Button>
         </div>
       </section>
+      <div className="py-12">
+        <ProjectGrid />
+      </div>
 
       {/* Footer */}
       <footer className="py-4 text-center text-sm text-muted-foreground">

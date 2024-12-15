@@ -8,6 +8,13 @@ export async function GET(request: Request) {
 
   const octokit = new Octokit();
 
+  if (!username) {
+    return NextResponse.json(
+      { error: "Username is required" },
+      { status: 400 }
+    );
+  }
+
   try {
     // Use the search.repos endpoint to find repositories with the 'side-project' topic for the provided username or default to thatbeautifuldream
     const { data } = await octokit.search.repos({
