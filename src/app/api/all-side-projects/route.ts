@@ -17,6 +17,7 @@ export async function GET() {
       name: repo.name,
       description: repo.description,
       stars: repo.stargazers_count,
+      forks: repo.forks_count,
       url: repo.html_url,
       language: repo.language,
       owner: {

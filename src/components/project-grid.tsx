@@ -1,17 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
 
 interface Repository {
   id: number;
   name: string;
   description: string;
   stars: number;
+  forks: number;
   url: string;
   language: string;
   topics: string[];
@@ -23,73 +22,67 @@ interface Repository {
   updated_at: string;
 }
 
+const fetchProjects = async (): Promise<Repository[]> => {
+  const response = await fetch("/api/all-side-projects");
+  if (!response.ok) throw new Error("Failed to fetch projects");
+  return response.json();
+};
+
 export default function ProjectGrid() {
-  const [projects, setProjects] = useState<Repository[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    data: projects,
+    isLoading,
+    isSuccess,
+    error,
+  } = useQuery({
+    queryKey: ["projects"],
+    queryFn: fetchProjects,
+  });
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch("/api/all-side-projects");
-        if (!response.ok) throw new Error("Failed to fetch projects");
-        const data = await response.json();
-        setProjects(data);
-      } catch (err) {
-        setError("Failed to load projects");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (error) return <div className="text-red-500 text-center">{error}</div>;
+  if (error)
+    return (
+      <div className="text-red-500 text-center">Failed to load projects</div>
+    );
 
   return (
     <div className="bg-background text-foreground">
+      {isLoading && (
+        <div className="flex flex-col gap-3 justify-center items-center mb-8">
+          <div className="text-sm animate-pulse text-muted-foreground">
+            Fetching side projects...
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {loading
-          ? Array.from({ length: 3 }).map((_, index) => (
-              <Card key={index} className="bg-card">
-                <CardHeader className="pb-2">
-                  <Skeleton className="h-6 w-3/4" />
-                </CardHeader>
-                <CardContent>
-                  <Skeleton className="h-4 w-full mb-2" />
-                  <Skeleton className="h-4 w-2/3" />
-                </CardContent>
-              </Card>
-            ))
-          : projects.map((project) => (
-              <Card key={project.id} className="bg-card">
-                <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={project.owner.avatar_url}
-                        alt={project.owner.login}
-                        width={32}
-                        height={32}
-                        className="rounded-full"
-                      />
-                      <div>
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-lg text-muted-foreground hover:text-primary truncate"
-                        >
-                          {project.name}
-                        </a>
-                        <p className="text-sm text-muted-foreground">
-                          by {project.owner.login}
-                        </p>
-                      </div>
+        {isSuccess &&
+          projects?.map((project) => (
+            <Card key={project.id} className="bg-card">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center space-x-3">
+                    <img
+                      src={project.owner.avatar_url}
+                      alt={project.owner.login}
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                    <div>
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg text-muted-foreground hover:text-primary truncate"
+                      >
+                        {project.name}
+                      </a>
+                      <p className="text-sm text-muted-foreground">
+                        by {project.owner.login}
+                      </p>
                     </div>
-                    <div className="flex items-center text-muted-foreground">
+                  </div>
+                  <div className="flex items-center space-x-3 text-muted-foreground">
+                    <div className="flex items-center">
                       <svg
                         className="w-4 h-4 mr-1"
                         fill="currentColor"
@@ -99,34 +92,45 @@ export default function ProjectGrid() {
                       </svg>
                       {project.stars}
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {project.description || "No description available"}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-2">
-                    {project.language && (
-                      <Badge
-                        variant="outline"
-                        className="px-2 py-1 rounded-full text-xs"
+                    <div className="flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-1"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
                       >
-                        {project.language}
-                      </Badge>
-                    )}
-                    {project.topics?.map((topic) => (
-                      <Badge
-                        key={topic}
-                        variant="secondary"
-                        className="px-2 py-1 rounded-full text-xs"
-                      >
-                        {topic}
-                      </Badge>
-                    ))}
+                        <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z" />
+                      </svg>
+                      {project.forks}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  {project.description || "No description available"}
+                </p>
+                <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+                  {project.language && (
+                    <Badge
+                      variant="outline"
+                      className="px-2 py-1 rounded-full text-xs shrink-0"
+                    >
+                      {project.language}
+                    </Badge>
+                  )}
+                  {project.topics?.map((topic) => (
+                    <Badge
+                      key={topic}
+                      variant="secondary"
+                      className="px-2 py-1 rounded-full text-xs shrink-0"
+                    >
+                      {topic}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
       </div>
     </div>
   );

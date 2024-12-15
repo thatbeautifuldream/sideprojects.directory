@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       {/* Hero Section */}
       <section className="flex-grow flex flex-col justify-start pt-12 px-4 text-center">
         <h2
@@ -49,14 +49,15 @@ export default function Home() {
           </Button>
         </div>
       </section>
+
       <div className="py-12">
         <ProjectGrid />
       </div>
 
       {/* Footer */}
-      <footer className="py-4 text-center text-sm text-muted-foreground">
+      <footer className="py-4 text-center text-sm text-muted-foreground mt-auto">
         <p className="flex items-center justify-center gap-1">
-          Made with <Heart fill="red" className="h-4 w-4" /> by
+          Made with <Heart className="h-4 w-4 fill-current" /> by
           <Link
             href="/u/thatbeautifuldream"
             className="font-medium hover:underline"
