@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -67,7 +68,7 @@ export default function ProjectGrid() {
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center space-x-3">
-                      <Image
+                      <img
                         src={project.owner.avatar_url}
                         alt={project.owner.login}
                         width={32}
