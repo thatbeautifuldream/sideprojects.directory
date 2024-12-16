@@ -6,6 +6,7 @@ import { UserSideProjects } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { RepoStatsModal } from "./repo-stats-modal";
 import { ProfileHeader } from "./profile-header";
+import Link from "next/link";
 
 const fetchSideProjects = async (
   username: string
@@ -44,14 +45,12 @@ export default function SideProjects({ username }: { username?: string }) {
             <Card key={project.name} className="bg-card">
               <CardHeader className="pb-2">
                 <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center w-full gap-2">
-                  <a
-                    href={project.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={`/${username}/${project.name}`}
                     className="text-lg text-muted-foreground hover:text-primary truncate max-w-full xs:max-w-[70%]"
                   >
                     {project.name}
-                  </a>
+                  </Link>
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <RepoStatsModal
                       stargazersUrl={project.stargazers_url}
