@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { allSideProjects } from "@/data";
 import { motion } from "framer-motion";
+import Link from "next/link";
 // import { useQuery } from "@tanstack/react-query";
 
 // interface Repository {
@@ -116,7 +117,13 @@ export default function ProjectGrid() {
                           {project.name}
                         </a>
                         <p className="text-sm text-muted-foreground mt-0.5">
-                          by {project.owner.login}
+                          by{" "}
+                          <Link
+                            href={`/u/${project.owner.login}`}
+                            className="hover:text-primary"
+                          >
+                            {project.owner.login}
+                          </Link>
                         </p>
                       </div>
                     </div>
