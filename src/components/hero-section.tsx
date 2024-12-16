@@ -22,7 +22,7 @@ export default function HeroSection() {
         topic to your GitHub repositories & showcase them at{" "}
         <code className="bg-muted/20 p-1 rounded-md">
           <span className="hidden sm:inline">sideprojects.directory</span>
-          <span>/u/your_github_username</span>
+          <span>/your_github_username</span>
         </code>
         .
       </p>

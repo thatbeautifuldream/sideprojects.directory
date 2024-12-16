@@ -108,18 +108,16 @@ export default function ProjectGrid() {
                         className="rounded-full"
                       />
                       <div>
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <Link
+                          href={`/${project.owner.login}/${project.name}`}
                           className="text-lg text-muted-foreground hover:text-primary truncate"
                         >
                           {project.name}
-                        </a>
+                        </Link>
                         <p className="text-sm text-muted-foreground mt-0.5">
                           by{" "}
                           <Link
-                            href={`/u/${project.owner.login}`}
+                            href={`/${project.owner.login}`}
                             className="hover:text-primary"
                           >
                             {project.owner.login}

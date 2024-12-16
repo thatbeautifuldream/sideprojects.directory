@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import { Octokit } from "@octokit/rest";
+import octokit from "@/lib/octokit";
 
 export async function GET() {
-  const octokit = new Octokit();
-
   try {
     // Search for trending repositories with the 'side-project' topic
     const { data } = await octokit.search.repos({

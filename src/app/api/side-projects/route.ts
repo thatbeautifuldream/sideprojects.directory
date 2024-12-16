@@ -1,12 +1,10 @@
+import octokit from "@/lib/octokit";
 import { NextResponse } from "next/server";
-import { Octokit } from "@octokit/rest";
 
 export async function GET(request: Request) {
   // Extract the username from the query parameters
   const url = new URL(request.url);
   const username = url.searchParams.get("username") || "thatbeautifuldream";
-
-  const octokit = new Octokit();
 
   try {
     // Use the search.repos endpoint to find repositories with the 'side-project' topic for the provided username or default to thatbeautifuldream
