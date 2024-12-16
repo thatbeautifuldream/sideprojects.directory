@@ -75,7 +75,7 @@ export default function ProjectGrid() {
     <div className="bg-background text-foreground">
       {isLoading && (
         <div className="flex flex-col gap-3 justify-center items-center mb-8">
-          <div className="text-sm animate-pulse text-muted-foreground">
+          <div className="~text-sm animate-pulse text-muted-foreground">
             Fetching side projects...
           </div>
         </div>
@@ -90,14 +90,14 @@ export default function ProjectGrid() {
           projects?.map((project) => (
             <motion.div key={project.id} variants={item}>
               <Card className="bg-card h-[200px] flex flex-col">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-3">
                   <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-4">
                       <img
                         src={project.owner.avatar_url}
                         alt={project.owner.login}
-                        width={32}
-                        height={32}
+                        width={38}
+                        height={38}
                         className="rounded-full"
                       />
                       <div>
@@ -109,15 +109,15 @@ export default function ProjectGrid() {
                         >
                           {project.name}
                         </a>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground mt-0.5">
                           by {project.owner.login}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 text-muted-foreground">
+                    <div className="flex items-center space-x-4 text-muted-foreground">
                       <div className="flex items-center">
                         <svg
-                          className="w-4 h-4 mr-1"
+                          className="w-4 h-4 mr-1.5"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -127,7 +127,7 @@ export default function ProjectGrid() {
                       </div>
                       <div className="flex items-center">
                         <svg
-                          className="w-4 h-4 mr-1"
+                          className="w-4 h-4 mr-1.5"
                           fill="currentColor"
                           viewBox="0 0 16 16"
                         >
@@ -138,15 +138,15 @@ export default function ProjectGrid() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="flex flex-col flex-grow justify-between">
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                <CardContent className="flex flex-col flex-grow justify-between pt-2">
+                  <p className="text-sm text-muted-foreground mb-6 line-clamp-2">
                     {project.description || "No description available"}
                   </p>
-                  <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar mt-auto">
+                  <div className="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar mt-auto">
                     {project.language && (
                       <Badge
                         variant="outline"
-                        className="px-2 py-1 rounded-full text-xs shrink-0"
+                        className="px-3 py-1 rounded-full text-xs shrink-0"
                       >
                         {project.language}
                       </Badge>
@@ -155,7 +155,7 @@ export default function ProjectGrid() {
                       <Badge
                         key={topic}
                         variant="secondary"
-                        className="px-2 py-1 rounded-full text-xs shrink-0"
+                        className="px-3 py-1 rounded-full text-xs shrink-0"
                       >
                         {topic}
                       </Badge>
