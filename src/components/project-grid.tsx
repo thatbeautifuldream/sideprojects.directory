@@ -120,7 +120,7 @@ export default function ProjectGrid() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4 text-muted-foreground">
+                    <div className="flex lg:flex-row flex-col items-end lg:items-center lg:space-x-4 lg:space-y-0 space-y-1 text-muted-foreground text-sm lg:text-base">
                       <div className="flex items-center">
                         <svg
                           className="w-4 h-4 mr-1.5"
@@ -148,7 +148,7 @@ export default function ProjectGrid() {
                   <p className="text-sm text-muted-foreground mb-6 line-clamp-2">
                     {project.description || "No description available"}
                   </p>
-                  <div className="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar mt-auto">
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-2 no-scrollbar mt-auto">
                     {project.language && (
                       <Badge
                         variant="outline"
