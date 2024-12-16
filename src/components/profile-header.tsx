@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { Avatar } from "@/components/ui/avatar";
-import { instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { User } from "@/types";
 import { ArrowUpRight, Crown } from "lucide-react";
+import Link from "next/link";
 
 interface ProfileHeaderProps {
   owner: User;
@@ -40,30 +40,51 @@ export function ProfileHeader({ owner }: ProfileHeaderProps) {
 
         <div className="text-center space-y-4">
           <div>
-            <h1
-              className={`text-3xl font-bold text-foreground ${instrumentSerif.className}`}
-            >
-              {owner.login}
+            <h1 className={`text-xl font-bold text-foreground`}>
+              {owner.name}
             </h1>
-            {/* <p className="text-muted-foreground text-sm mt-1">
-              {owner.type} {owner.site_admin && "• Admin"}
-            </p> */}
+            <Link
+              href={`https://github.com/${owner.login}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary text-sm mt-1"
+            >
+              @{owner.login}{" "}
+            </Link>
+            <p className="text-muted-foreground text-sm mt-1">{owner.bio}</p>
+            <p className="text-muted-foreground text-sm mt-1">
+              {owner.location}
+            </p>
           </div>
 
           <div className="flex items-center justify-center gap-6 text-sm">
             <div className="flex items-center gap-6">
-              <div className="flex flex-col items-center">
+              <Link
+                href={owner.followers_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center"
+              >
                 <span className="font-semibold text-foreground">
                   {owner.followers}
                 </span>
-                <span className="text-xs text-muted-foreground">Followers</span>
-              </div>
-              <div className="flex flex-col items-center">
+                <span className="text-xs text-muted-foreground hover:text-primary">
+                  Followers
+                </span>
+              </Link>
+              <Link
+                href={owner.following_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center"
+              >
                 <span className="font-semibold text-foreground">
                   {owner.following}
                 </span>
-                <span className="text-xs text-muted-foreground">Following</span>
-              </div>
+                <span className="text-xs text-muted-foreground hover:text-primary">
+                  Following
+                </span>
+              </Link>
             </div>
           </div>
         </div>
