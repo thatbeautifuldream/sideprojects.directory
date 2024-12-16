@@ -7,7 +7,7 @@ export default function Footer() {
       <p className="flex items-center justify-center gap-1">
         Made with <Heart className="h-4 w-4 fill-current" /> by
         <Link
-          href="/u/thatbeautifuldream"
+          href="/thatbeautifuldream"
           className="font-medium hover:underline"
         >
           Milind
