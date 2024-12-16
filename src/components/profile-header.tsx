@@ -3,7 +3,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { User } from "@/types";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Crown } from "lucide-react";
 
 interface ProfileHeaderProps {
   owner: User;
@@ -27,11 +27,14 @@ export function ProfileHeader({ owner }: ProfileHeaderProps) {
             rel="noopener noreferrer"
             className={cn(
               "absolute -top-2 -right-2 p-1.5 rounded-full",
-              "bg-background border shadow-sm",
-              "hover:text-primary transition-colors"
+              "bg-background border shadow-sm hover:text-primary transition-colors"
             )}
           >
-            <ArrowUpRight className="w-4 h-4" />
+            {owner.login === "thatbeautifuldream" ? (
+              <Crown className="w-4 h-4" />
+            ) : (
+              <ArrowUpRight className="w-4 h-4" />
+            )}
           </a>
         </div>
 
