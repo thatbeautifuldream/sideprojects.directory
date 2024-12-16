@@ -7,13 +7,11 @@ import { Button } from "@/components/ui/button";
 import { instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Dices, Github, Heart } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
-  const { theme } = useTheme();
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
