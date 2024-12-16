@@ -15,8 +15,15 @@ export default function HeroSection() {
       </h2>
       <p className="~text-base/xl text-muted-foreground ~max-w-xl/2xl mx-auto ~mb-4/8">
         A curated space for developers to share and discover amazing side
-        projects. Add the &apos;side-project&apos; topic to your GitHub
-        repositories to showcase them here.
+        projects. Add the{" "}
+        <code className="bg-green-500/30 p-1 rounded-md text-primary">
+          side-project
+        </code>{" "}
+        topic to your GitHub repositories & showcase them at{" "}
+        <code className="bg-muted/20 p-1 rounded-md">
+          sideprojects.directory/u/your_github_username
+        </code>
+        .
       </p>
 
       <Link
