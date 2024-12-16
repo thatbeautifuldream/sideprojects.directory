@@ -1,4 +1,9 @@
-export type Repository = {
+export interface UserSideProjects {
+  user: User;
+  repositories: Repository[];
+}
+
+export interface Repository {
   id: number;
   node_id: string;
   name: string;
@@ -68,7 +73,7 @@ export type Repository = {
   archived: boolean;
   disabled: boolean;
   open_issues_count: number;
-  license: null;
+  license: License | null;
   allow_forking: boolean;
   is_template: boolean;
   web_commit_signoff_required: boolean;
@@ -79,9 +84,17 @@ export type Repository = {
   watchers: number;
   default_branch: string;
   score: number;
-};
+}
 
-export interface Owner {
+interface License {
+  key: string;
+  name: string;
+  spdx_id: string;
+  url: string;
+  node_id: string;
+}
+
+interface Owner {
   login: string;
   id: number;
   node_id: string;
@@ -101,4 +114,40 @@ export interface Owner {
   type: string;
   user_view_type: string;
   site_admin: boolean;
+}
+
+export interface User {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: string;
+  user_view_type: string;
+  site_admin: boolean;
+  name: string;
+  company: null;
+  blog: string;
+  location: string;
+  email: null;
+  hireable: boolean;
+  bio: string;
+  twitter_username: string;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  created_at: string;
+  updated_at: string;
 }
