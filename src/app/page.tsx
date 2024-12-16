@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import ProjectGrid from "@/components/project-grid";
@@ -5,11 +6,13 @@ import { Button } from "@/components/ui/button";
 import { instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Dices, Github, Heart } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
+  const { theme } = useTheme();
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -27,6 +30,22 @@ export default function Home() {
           projects. Add the &apos;side-project&apos; topic to your GitHub
           repositories to showcase them here.
         </p>
+        <Link
+          href="https://peerlist.io/milind/project/sideprojectsdirectory"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center mb-4"
+        >
+          <img
+            src={
+              theme === "light"
+                ? "/launch-svg-light.svg"
+                : "/launch-svg-dark.svg"
+            }
+            alt="Spotlight Launch"
+            className="w-48 h-24"
+          />
+        </Link>
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           <Button size="lg" className="w-full sm:w-auto" asChild>
             <a
