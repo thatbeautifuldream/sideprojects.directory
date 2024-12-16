@@ -50,7 +50,7 @@ export default function HeroSection() {
           variant="outline"
           size="lg"
           className="w-full sm:w-auto"
-          onClick={() => router.push("/u/thatbeautifuldream")}
+          onClick={() => router.push("/thatbeautifuldream")}
         >
           <Dices className="mr-2" />
           View Example
