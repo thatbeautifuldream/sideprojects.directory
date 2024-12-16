@@ -9,6 +9,25 @@ import { ProjectData, Languages } from "@/types/project-data";
 import { cn } from "@/lib/utils";
 import { instrumentSerif } from "@/lib/fonts";
 
+const colors: Record<string, string> = {
+  TypeScript: "bg-blue-500",
+  JavaScript: "bg-yellow-400",
+  CSS: "bg-purple-500",
+  HTML: "bg-orange-500",
+  Python: "bg-green-500",
+  Java: "bg-red-500",
+  C: "bg-gray-500",
+  CSharp: "bg-blue-500",
+  CPlusPlus: "bg-green-500",
+  Go: "bg-blue-500",
+  Ruby: "bg-red-500",
+  PHP: "bg-purple-500",
+  Swift: "bg-green-500",
+  Kotlin: "bg-red-500",
+  Rust: "bg-orange-500",
+  Shell: "bg-gray-500",
+};
+
 async function getProjectData(
   owner: string,
   repo: string
@@ -25,24 +44,6 @@ function LanguageBar({ languages }: { languages: Languages }) {
     <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden flex">
       {Object.entries(languages).map(([lang, size]) => {
         const percentage = (size / total) * 100;
-        const colors: Record<string, string> = {
-          TypeScript: "bg-blue-500",
-          JavaScript: "bg-yellow-400",
-          CSS: "bg-purple-500",
-          HTML: "bg-orange-500",
-          Python: "bg-green-500",
-          Java: "bg-red-500",
-          C: "bg-gray-500",
-          CSharp: "bg-blue-500",
-          CPlusPlus: "bg-green-500",
-          Go: "bg-blue-500",
-          Ruby: "bg-red-500",
-          PHP: "bg-purple-500",
-          Swift: "bg-green-500",
-          Kotlin: "bg-red-500",
-          Rust: "bg-gray-500",
-          Shell: "bg-gray-500",
-        };
 
         return (
           <div
@@ -112,7 +113,7 @@ export default function RepoPage() {
       <div className="space-y-6">
         {/* Repository Header */}
         <div className="border-b pb-6">
-          <div className="flex items-start justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
               <h1
                 className={cn(
@@ -132,7 +133,7 @@ export default function RepoPage() {
               </h1>
               <p className="text-gray-600 mt-2">{repository.description}</p>
             </div>
-            <div className="flex gap-4">
+            <div className="flex sm:flex-col gap-4 sm:gap-2 text-sm">
               <div className="flex items-center gap-1">
                 <Star size={16} />
                 <span>{repository.stargazers_count}</span>
@@ -156,7 +157,12 @@ export default function RepoPage() {
           <div className="flex gap-4 text-sm text-gray-600">
             {Object.entries(languages).map(([lang, size]) => (
               <div key={lang} className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded-full bg-blue-500" />
+                <div
+                  className={cn(
+                    "w-3 h-3 rounded-full",
+                    colors[lang] || "bg-gray-500"
+                  )}
+                />
                 <span>{lang}</span>
                 <span className="text-gray-400">
                   {(
