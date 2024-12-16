@@ -69,6 +69,9 @@ importers:
       eslint-config-next:
         specifier: 15.0.3
         version: 15.0.3(eslint@8.57.1)(typescript@5.7.2)
+      fluid-tailwind:
+        specifier: ^1.0.4
+        version: 1.0.4(tailwindcss@3.4.16)
       postcss:
         specifier: ^8
         version: 8.4.49
@@ -1097,6 +1100,10 @@ packages:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
 
+  filter-obj@5.1.0:
+    resolution: {integrity: sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng==}
+    engines: {node: '>=14.16'}
+
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
@@ -1107,6 +1114,11 @@ packages:
 
   flatted@3.3.2:
     resolution: {integrity: sha512-AiwGJM8YcNOaobumgtng+6NHuOqC3A7MixFeDafM3X9cIUM+xUXoS5Vfgf+OihAYe20fxqNM9yPBXJzRtZ/4eA==}
+
+  fluid-tailwind@1.0.4:
+    resolution: {integrity: sha512-jO1+4l4r3kE/5We3kYRl3o4JsbFA2zoluEwJG3VrytlKuCfK4aTv5QHqXgOaw0YQd9HKjOVIFYsVvhG8sxIh5w==}
+    peerDependencies:
+      tailwindcss: ^3.2.0
 
   for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -1445,6 +1457,10 @@ packages:
     resolution: {integrity: sha512-6koYRhnM2N0GGZIdXzSeiNwguv1gt/FAjZOiPl76roBi3xKEXa4WmfpxgQwTTL4KipXjefrnf3oV4IsYhi4JFA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
+
+  map-obj@5.0.2:
+    resolution: {integrity: sha512-K6K2NgKnTXimT3779/4KxSvobxOtMmx1LBZ3NwRxT/MDIR3Br/fQ4Q+WCX5QxjyUR8zg5+RV9Tbf2c5pAWTD2A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -3182,6 +3198,8 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
+  filter-obj@5.1.0: {}
+
   find-up@5.0.0:
     dependencies:
       locate-path: 6.0.0
@@ -3194,6 +3212,13 @@ snapshots:
       rimraf: 3.0.2
 
   flatted@3.3.2: {}
+
+  fluid-tailwind@1.0.4(tailwindcss@3.4.16):
+    dependencies:
+      filter-obj: 5.1.0
+      map-obj: 5.0.2
+      picocolors: 1.1.1
+      tailwindcss: 3.4.16
 
   for-each@0.3.3:
     dependencies:
@@ -3526,6 +3551,8 @@ snapshots:
   lucide-react@0.468.0(react@19.0.0-rc-66855b96-20241106):
     dependencies:
       react: 19.0.0-rc-66855b96-20241106
+
+  map-obj@5.0.2: {}
 
   merge2@1.4.1: {}
 
