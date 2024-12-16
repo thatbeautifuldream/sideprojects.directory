@@ -7,7 +7,7 @@ export default function GTMProvider({
 }) {
   return (
     <>
-      <GoogleTagManager gtmId={process.env.GTM_ID || ""} />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || ""} />
       {children}
     </>
   );
