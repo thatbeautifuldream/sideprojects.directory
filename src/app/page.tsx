@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import LaunchSvg from "@/components/launch-svg";
 import ProjectGrid from "@/components/project-grid";
 import { Button } from "@/components/ui/button";
 import { instrumentSerif } from "@/lib/fonts";
@@ -30,21 +31,14 @@ export default function Home() {
           projects. Add the &apos;side-project&apos; topic to your GitHub
           repositories to showcase them here.
         </p>
+
         <Link
           href="https://peerlist.io/milind/project/sideprojectsdirectory"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center mb-4"
+          className="flex items-center justify-center mb-4 h-24"
         >
-          <img
-            src={
-              theme === "light"
-                ? "/launch-svg-light.svg"
-                : "/launch-svg-dark.svg"
-            }
-            alt="Spotlight Launch"
-            className="w-48 h-24"
-          />
+          <LaunchSvg />
         </Link>
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           <Button size="lg" className="w-full sm:w-auto" asChild>
