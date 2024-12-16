@@ -3,42 +3,48 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query";
+import { allSideProjects } from "@/data";
 import { motion } from "framer-motion";
+// import { useQuery } from "@tanstack/react-query";
 
-interface Repository {
-  id: number;
-  name: string;
-  description: string;
-  stars: number;
-  forks: number;
-  url: string;
-  language: string;
-  topics: string[];
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
-  created_at: string;
-  updated_at: string;
-}
+// interface Repository {
+//   id: number;
+//   name: string;
+//   description: string;
+//   stars: number;
+//   forks: number;
+//   url: string;
+//   language: string;
+//   topics: string[];
+//   owner: {
+//     login: string;
+//     avatar_url: string;
+//   };
+//   created_at: string;
+//   updated_at: string;
+// }
 
-const fetchProjects = async (): Promise<Repository[]> => {
-  const response = await fetch("/api/all-side-projects");
-  if (!response.ok) throw new Error("Failed to fetch projects");
-  return response.json();
-};
+// const fetchProjects = async (): Promise<Repository[]> => {
+//   const response = await fetch("/api/all-side-projects");
+//   if (!response.ok) throw new Error("Failed to fetch projects");
+//   return response.json();
+// };
 
 export default function ProjectGrid() {
-  const {
-    data: projects,
-    isLoading,
-    isSuccess,
-    error,
-  } = useQuery({
-    queryKey: ["projects"],
-    queryFn: fetchProjects,
-  });
+  // const {
+  //   data: projects,
+  //   isLoading,
+  //   isSuccess,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["projects"],
+  //   queryFn: fetchProjects,
+  // });
+
+  const projects = allSideProjects;
+  const isLoading = false;
+  const isSuccess = true;
+  const error = null;
 
   const container = {
     hidden: { opacity: 1 },
