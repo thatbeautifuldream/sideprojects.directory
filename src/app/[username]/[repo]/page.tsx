@@ -1,13 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import ReactMarkdown from "react-markdown";
-import { ArrowUpRight, GitForkIcon, Star, Eye } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePathname } from "next/navigation";
-import { ProjectData, Languages } from "@/types/project-data";
 import { cn } from "@/lib/utils";
-import { instrumentSerif } from "@/lib/fonts";
+import { Languages, ProjectData } from "@/types/project-data";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowUpRight, Eye, GitForkIcon, Star } from "lucide-react";
+import { usePathname } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 const colors: Record<string, string> = {
   TypeScript: "bg-blue-500",
@@ -83,6 +84,29 @@ function LoadingState() {
   );
 }
 
+function getAbsoluteImageUrl(src: string, owner: string, repo: string) {
+  if (
+    (src.startsWith("http://") || src.startsWith("https://")) &&
+    !src.includes("githubusercontent.com")
+  ) {
+    return src;
+  }
+
+  const path = src.startsWith("/") ? src.slice(1) : src;
+
+  let githubUrl;
+  if (path.startsWith("./") || path.startsWith("../")) {
+    githubUrl = `https://raw.githubusercontent.com/${owner}/${repo}/HEAD/${path.replace(
+      /^\.\//,
+      ""
+    )}`;
+  } else {
+    githubUrl = `https://raw.githubusercontent.com/${owner}/${repo}/HEAD/${path}`;
+  }
+
+  return `/api/proxy-image?url=${encodeURIComponent(githubUrl)}`;
+}
+
 export default function RepoPage() {
   const pathname = usePathname();
   const parts = pathname.split("/").filter(Boolean);
@@ -115,12 +139,7 @@ export default function RepoPage() {
         <div className="border-b pb-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
-              <h1
-                className={cn(
-                  "text-3xl font-bold flex items-center gap-2",
-                  instrumentSerif.className
-                )}
-              >
+              <h1 className={cn("text-3xl font-bold flex items-center gap-2")}>
                 {repository.name}
                 <a
                   href={repository.html_url}
@@ -154,26 +173,31 @@ export default function RepoPage() {
         <div className="space-y-2">
           <h2 className="text-lg font-semibold">Languages</h2>
           <LanguageBar languages={languages} />
-          <div className="flex gap-4 text-sm text-gray-600">
-            {Object.entries(languages).map(([lang, size]) => (
-              <div key={lang} className="flex items-center gap-1">
+          <div className="overflow-x-auto pb-2">
+            <div className="flex gap-4 text-sm text-gray-600 min-w-min">
+              {Object.entries(languages).map(([lang, size]) => (
                 <div
-                  className={cn(
-                    "w-3 h-3 rounded-full",
-                    colors[lang] || "bg-gray-500"
-                  )}
-                />
-                <span>{lang}</span>
-                <span className="text-gray-400">
-                  {(
-                    (size /
-                      Object.values(languages).reduce((a, b) => a + b, 0)) *
-                    100
-                  ).toFixed(1)}
-                  %
-                </span>
-              </div>
-            ))}
+                  key={lang}
+                  className="flex items-center gap-1 whitespace-nowrap"
+                >
+                  <div
+                    className={cn(
+                      "w-3 h-3 rounded-full",
+                      colors[lang] || "bg-gray-500"
+                    )}
+                  />
+                  <span>{lang}</span>
+                  <span className="text-gray-400">
+                    {(
+                      (size /
+                        Object.values(languages).reduce((a, b) => a + b, 0)) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -197,7 +221,37 @@ export default function RepoPage() {
                 [&_code]:!bg-gray-100 [&_code]:dark:!bg-gray-800
                 [&_*]:!rounded-none"
             >
-              <ReactMarkdown>{readme}</ReactMarkdown>
+              <ReactMarkdown
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  pre: ({ ...props }) => (
+                    <pre {...props} className="overflow-auto" />
+                  ),
+                  code: ({ ...props }) => <code {...props} />,
+                  img: ({ src, alt, width, height, style, className }) => {
+                    if (!src) return null;
+                    const imageUrl = getAbsoluteImageUrl(src, username, repo);
+                    return (
+                      <img
+                        src={imageUrl}
+                        alt={alt || ""}
+                        width={width}
+                        height={height}
+                        style={style}
+                        className={cn("max-w-full h-auto", className)}
+                        onError={(e) => {
+                          const imgElement = e.currentTarget;
+                          if (imgElement.src !== src) {
+                            imgElement.src = src;
+                          }
+                        }}
+                      />
+                    );
+                  },
+                }}
+              >
+                {readme}
+              </ReactMarkdown>
             </div>
           </div>
         </div>
