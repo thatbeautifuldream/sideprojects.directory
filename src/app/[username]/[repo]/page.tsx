@@ -204,9 +204,14 @@ export default function RepoPage() {
         {/* README */}
         <div className="mt-8">
           <h2 className="text-lg font-semibold mb-4">README</h2>
-          <div className="border dark:border-gray-800">
+          <div className="border dark:border-gray-800 overflow-hidden">
             <div
               className="p-6 prose dark:prose-invert prose-pre:rounded-none max-w-none 
+                overflow-x-auto
+                [&_*]:break-words
+                [&_pre]:overflow-x-auto [&_pre]:max-w-full
+                [&_table]:w-full [&_table]:overflow-x-auto [&_table]:block
+                [&_img]:max-w-full [&_img]:h-auto
                 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
                 prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700
                 prose-headings:border-b prose-headings:border-gray-200 dark:prose-headings:border-gray-800
