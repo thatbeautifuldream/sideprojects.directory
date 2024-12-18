@@ -3,7 +3,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { User } from "@/types";
 import { ArrowUpRight, Crown } from "lucide-react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 interface ProfileHeaderProps {
   owner: User;

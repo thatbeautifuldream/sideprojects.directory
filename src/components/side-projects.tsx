@@ -6,7 +6,7 @@ import { UserSideProjects } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { RepoStatsModal } from "./repo-stats-modal";
 import { ProfileHeader } from "./profile-header";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const fetchSideProjects = async (
   username: string

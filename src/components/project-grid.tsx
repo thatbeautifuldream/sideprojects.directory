@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { allSideProjects } from "@/data";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 // import { useQuery } from "@tanstack/react-query";
 
 // interface Repository {

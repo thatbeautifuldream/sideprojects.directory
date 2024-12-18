@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { instrumentSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Dices, Github } from "lucide-react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useRouter } from "next/navigation";
 import LaunchSvg from "./launch-svg";
 
