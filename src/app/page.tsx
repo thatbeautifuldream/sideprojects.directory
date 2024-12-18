@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection />
-      <div className="py-12">
+      <div className="py-16" id="side-projects">
         <ProjectGrid />
       </div>
       <Footer />
